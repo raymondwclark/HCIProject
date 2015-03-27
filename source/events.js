@@ -21,14 +21,51 @@ document.addEventListener('mouseup', function (mousePos) {
     }
 })
 
+// check for key press, use status to combine with mouseclick
+var savePressed = false;
+var index = 0;
+
+$(document).keydown(function(evt) {
+
+    // check if the 'c' key is pressed (code 67)
+    if(evt.which == 67)
+    {
+        savePressed = true;
+    }
+
+    // check if v is pressed
+    else if(evt.which == 86)
+    {
+        var points = document.getElementsByClassName("checkpoint");
+
+        //scroll to the icon
+        points[index].scrollIntoView();
+
+        index++;
+
+        if(index > points.length - 1) {
+            index = 0;
+        }
+    }
+
+}).keyup(function(evt) {
+    if(evt.which == 67)
+    {
+        savePressed = false;
+    }
+
+});
 
 $(document).click(function(event) { 
     // Check for left button
-    if (event.button == 0) {
+    if (event.button == 0 && savePressed == true) {
         //alert("clicked");
+
         // THIS WORKS (adds the test text to the clicked object)
-        $(event.target).append('<p>Test</p>');
-        //$(event.target).append("<img src= logo.png");
+        //$(event.target).append('<p>Test</p>');
+
+        var imgURL = chrome.extension.getURL("logo.png");
+        $(event.target).prepend('<img class="checkpoint" src='+imgURL+' />');
         //var imgURL = chrome.extension.getURL("logo.jpg");
         //$(e.target).append('<img id="theImg" src="imgURL"/>'); 
     }

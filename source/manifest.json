@@ -11,7 +11,7 @@
   },
 
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "logo.png",
     "default_popup": "popup.html",
     "default_title": "Settings"
   },
@@ -34,10 +34,6 @@
 
   }],
 
-  "web_accessible_resources": [
-
-    "logo.png"
-
-  ]
+  "web_accessible_resources": ["logo.png"]
 
 }
