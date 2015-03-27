@@ -4,33 +4,56 @@
   <head>
     <title>Checkpoint</title>
     <style>
-      body {
+      /*body {
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
+      }*/
+      body{
+        background-color: lightblue;
       }
-      #status {
-        /* avoid an excessively wide status text */
-        white-space: pre;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 400px;
+      p {
+        color: black;
+        text-align: left;
+        margin-left: 20px;
+        font-family: "Arial", Helvetica, sans-serif;
+        font-size: 150%;
+        width: 200px;
+      }
+      select.iconMenu option{
+        background-repeat: no-repeat;
+        background-position: bottom left;
+        padding-left: 30px;
       }
     </style>
     <script src="popup.js"></script>
   </head>
   <body>
     <form id = "settings">
-      <p><label for="extensionToggle">Extension Toggle</label><br />
-        <input type = "radio" name = "onOff" value = "on" checked>On
+      <!--Toggle Extension on or off-->
+      <p><label for="extensionToggle"><span title = "Turns the extension on or off">Extension</span></label><br />
+        <input type = "radio" name = "extensionOnOff" value = "on" checked>On
         <br>
-        <input type = "radio" name = "onOff" value = "off">Off</p>
-      <p><label for="placementSide">Checkpoint Placement</label><br />
+        <input type = "radio" name = "extensionOnOff" value = "off">Off</p>
+
+      <!--Toggle checkpoint on or off-->
+      <p><label for="checkPointToggle"><span title = "Turns the ability to place checkpoints on or off">Toggle Checkpoints</span></label><br />
+        <input type = "radio" name = "checkpointOnOff" value = "on" checked>On
+        <br>
+        <input type = "radio" name = "checkpointOnOff" value = "off">Off</p>
+
+      <!--Place checkpoint on left or right-->
+      <p><label for="placementSide"><span title = "Places the checkpoint on the left or right side of the page">Checkpoint Placement</span></label><br />
         <input type = "radio" name = "placementSide" value = "leftSide" checked>Left
         <br>
         <input type = "radio" name = "placementSide" value = "rightSide">Right</p>
-      <p>Toggle Checkpoints</p>
-      <p>Custom Icons</p>
-      <p>Right Click Menu</p> 
+      
+      <!--Choose checkpoint icon-->
+      <p><label for "icons"><span title = "Choose a different checkpoint icon to use">Checkpoint Icons</span></label><br />
+        <input type = "radio" name = "icon" value = "icon1" checked/>
+          <label for "icon1"><img src = "icon.png" alt = "Icon 1"/></label>
+          <br>
+        <input type = "radio" name = "icon" value = "icon2"/>
+          <label for "icon2"><img src = "" alt = "Icon 2"/></label></p>
     </form>
   </body>
 </html>

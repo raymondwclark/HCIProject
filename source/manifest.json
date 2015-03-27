@@ -1,36 +1,29 @@
 {
-  "manifest_version": 2,
-
   "name": "Checkpoint",
-  "description": "This extension allows users to place checkpoints on webpages and loop through them",
+  "description": "Plot a checkpoint whenever the user clicks on the webpage",
   "version": "1.0",
-
-  "background":{
-    "scripts": ["bg.js"]
-    //"persistent": false
-  },
-
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html",
-    "default_title": "Settings"
-  },
-
   "permissions": [
-    "activeTab",
-    "tabs",
-    "contextMenus"
+    "activeTab"
   ],
-
-  "content_scripts": [ {
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  
+   "content_scripts": [ {
     "matches": [
       "http://*/*", 
       "https://*/*"
     ],
 
-    "js": ["events.js"],
-    "all_frames": true
+    "css": ["color.css"]
 
-  }]
+  }],
 
+  "browser_action": {
+    "default_title": "Plot a checkpoint",
+    "default_icon" : "icon.png"
+    //"default_popup" : "popup.html"
+  },
+  "manifest_version": 2
 }

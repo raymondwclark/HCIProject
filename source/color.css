@@ -1,0 +1,13 @@
+.color-selection {
+	padding: 5px;
+	border: 1px solid #000;
+}
+.highlight-red {
+	color: #FF0000;
+}
+.highlight-green {
+	color: #00FF00;
+}
+.highlight-blue {
+	color: #0000FF;
+}
