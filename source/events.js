@@ -21,6 +21,34 @@ document.addEventListener('mouseup', function (mousePos) {
     }
 })
 
+
+$(document).click(function(event) { 
+    // Check for left button
+    if (event.button == 0) {
+        //alert("clicked");
+        // THIS WORKS (adds the test text to the clicked object)
+        $(event.target).append('<p>Test</p>');
+        //$(event.target).append("<img src= logo.png");
+        //var imgURL = chrome.extension.getURL("logo.jpg");
+        //$(e.target).append('<img id="theImg" src="imgURL"/>'); 
+    }
+});
+
+
+
+
+/*
+var image = document.createElement("img");
+image.src = chrome.extension.getURL("logo.jpg");
+
+(image).rightClick( function(e) {
+    var x = e.pageX;
+    var y = e.pageY;
+    ("<div class='pin' style='top: " + y + "px; left: " + x + "px';></div>").insertAfter(this); 
+
+});
+*/
+
 /*
 
 'use strict';

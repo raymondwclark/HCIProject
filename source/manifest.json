@@ -28,9 +28,16 @@
       "https://*/*"
     ],
 
-    "js": ["events.js"],
+    "js": ["bower_components/jquery/dist/jquery.js", "events.js"],
+
     "all_frames": true
 
-  }]
+  }],
+
+  "web_accessible_resources": [
+
+    "logo.png"
+
+  ]
 
 }
