@@ -9,15 +9,15 @@
         font-size: 100%;
       }*/
       body{
-        background-color: lightblue;
+        background-color: #F0F0F0;
       }
       p {
         color: black;
         text-align: left;
         margin-left: 20px;
-        font-family: "Arial", Helvetica, sans-serif;
-        font-size: 150%;
-        width: 200px;
+        font-family: Helvetica, sans-serif;
+        font-size: 125%;
+        width: 150px;
       }
       select.iconMenu option{
         background-repeat: no-repeat;
@@ -29,12 +29,6 @@
   </head>
   <body>
     <form id = "settings">
-      <!--Toggle Extension on or off-->
-      <p><label for="extensionToggle"><span title = "Turns the extension on or off">Extension</span></label><br />
-        <input type = "radio" name = "extensionOnOff" value = "on" checked>On
-        <br>
-        <input type = "radio" name = "extensionOnOff" value = "off">Off</p>
-
       <!--Toggle checkpoint on or off-->
       <p><label for="checkPointToggle"><span title = "Turns the ability to place checkpoints on or off">Toggle Checkpoints</span></label><br />
         <input type = "radio" name = "checkpointOnOff" value = "on" checked>On
@@ -50,10 +44,16 @@
       <!--Choose checkpoint icon-->
       <p><label for "icons"><span title = "Choose a different checkpoint icon to use">Checkpoint Icons</span></label><br />
         <input type = "radio" name = "icon" value = "icon1" checked/>
-          <label for "icon1"><img src = "icon.png" alt = "Icon 1"/></label>
+          <label for "icon1"><img src = "icon1.png" alt = "Icon 1"/></label>
           <br>
         <input type = "radio" name = "icon" value = "icon2"/>
-          <label for "icon2"><img src = "" alt = "Icon 2"/></label></p>
+          <label for "icon2"><img src = "icon2.png" alt = "Icon 2"/></label>
+          <br>
+          <input type = "radio" name = "icon" value = "icon3"/>
+          <label for "icon3"><img src = "icon3.png" alt = "Icon 3"/></label></p>
+
+      <p><a href="help.html" style = "color: #0000FF;">Help</a></p>
+
     </form>
   </body>
 </html>
