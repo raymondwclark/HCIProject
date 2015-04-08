@@ -1,4 +1,45 @@
 'use strict';
+
+// run this block of code whent he page has loaded
+/*
+$(document).ready( function () {
+    // Create a canvas that extends the entire screen
+    // and it will draw right over the other html elements, like buttons, etc
+    var canvas = document.createElement("canvas");
+    canvas.setAttribute("width", window.innerWidth);
+    canvas.setAttribute("height", window.innerHeight);
+    canvas.setAttribute("style", "position: absolute; x:0; y:0;");
+    document.body.appendChild(canvas);
+
+    var ctx = canvas.getContext("2d");
+    //ctx.fillRect(10,10,1,1);
+
+    //create the image to be drawn
+    var newCheckpoint = new Image();
+    newCheckpoint.className = "checkpoint";
+    newCheckpoint.src = chrome.extension.getURL("icon1.png");
+
+    ctx.drawImage(newCheckpoint, 100, 100, 19, 19);
+/*
+    img = $("<img />")
+    img.attr({ src: chrome.extension.getURL("icon1.png"), class: 'checkpoint'});
+    img.css({top: checkpoints[i].y, left: checkpionts[i].x})
+    img.html(point);
+    $("#canvas").append(img);
+    */
+//}
+
+/*
+window.onload = function() {
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("scream");
+    ctx.drawImage(img, 50, 10, 150, 180);
+}
+*/
+
+// OLD CODE USED TO GET MOUSE POSITION ON RIGHT CLICK
+/*
 //global var for store cursor position
 var gPos = null;
 
@@ -32,6 +73,11 @@ var idConsole = chrome.contextMenus.create({
         OnClick(info, tab, '%s', gPos);
         }
 })
+*/
+// END OF RIGHT CLICK CODE
+
+
+
 /*
 $(document).click( function(event) {
     //var image = document.createElement("img");
