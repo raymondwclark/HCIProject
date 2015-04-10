@@ -97,6 +97,10 @@ $(document).ready( function () {
         console.log(key + ":\t" + localStorage[key]);
     }
 */
+    var findNearest = function() {
+
+    };
+
     var thisURL = window.location.href;
 
     chrome.storage.sync.get('checkpoints', function (result) {
@@ -268,6 +272,21 @@ $(document).keydown(function(evt) {
         }
     }
 
+    // if 'f' is pressed
+    else if(evt.which == 70)
+    {
+        var points = document.getElementsByClassName("checkpoint");
+
+        //scroll to the icon
+        points[index].scrollIntoView();
+
+        index--;
+
+        if(index < 0) {
+            index = points.length - 1;
+        }
+    }
+
     // if z is pressed
     else if(evt.which == 90)
     {
@@ -297,7 +316,9 @@ $(document).keydown(function(evt) {
 
 $(document).click(function(event) { 
     // Check for left button
-    if (event.button == 0 && savePressed == true) {
+    // the third condition makes sure that the clicked on element doesn't already have
+    // a checkpoint as an attached element
+    if (event.button == 0 && savePressed == true && !$(event.target).find('.checkpoint').length) {
         //alert("clicked");
 
         // THIS WORKS (adds the test text to the clicked object)

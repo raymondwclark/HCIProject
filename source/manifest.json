@@ -35,7 +35,7 @@
       "https://*/*"
     ],
 
-    "js": ["bower_components/jquery/dist/jquery.js", "events.js"],
+    "js": ["bower_components/jquery/dist/jquery.js", "events.js", "bower_components/jquery-nearest/src/jquery.nearest.js"],
 
     "all_frames": true,
 
