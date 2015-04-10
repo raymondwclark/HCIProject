@@ -11,8 +11,8 @@ function getPageDetails(callback) {
 };
 */
 
-'use strict';
-/*
+//'use strict';
+
 //when mouse up, send message to bg.js with this position
 document.addEventListener('mouseup', function (mousePos) {
     if (mousePos.button == 2) {
@@ -21,6 +21,33 @@ document.addEventListener('mouseup', function (mousePos) {
         chrome.runtime.sendMessage(msg, function(response) {});
     }
 });
+
+
+/*
+function getClosestElement(x, y) {
+    var elements, el, offset, dist, i, minDist, closestEl;
+
+    elements = $("body *");
+    closestEl = elements.eq(i);
+    offset = closestEl.offset();
+    offset.left += el.outerWidth()/2; // center of object
+    offset.top += el.outerHeight()/2; // middle of object
+    minDist = Math.sqrt((offset.left - x)*(offset.left - x) + (offset.top - y)*(offset.top - y));
+
+    for (var i=0; i < elements.length; i++) {
+        el = elements.eq(i);
+        offset = el.offset();
+        offset.left += el.outerWidth()/2; // center of object
+        offset.top += el.outerHeight()/2; // middle of object
+        dist = Math.sqrt((offset.left - x)*(offset.left - x) + (offset.top - y)*(offset.top - y));
+        if (dist < minDist) {
+            minDist = dist;
+            closestEl = el;
+        }
+    }
+
+    return closestEl;
+}
 */
 /*
 window.onload = function() {
@@ -30,12 +57,99 @@ window.onload = function() {
    ctx.drawImage(img, 10, 10);
 }
 */
+/*
+closestToOffset: function(offset) {
+    var el = null, elOffset, x = offset.left, y = offset.top, distance, dx, dy, minDistance;
+    this.each(function() {
+        elOffset = $(this).offset();
+
+        if (
+        (x >= elOffset.left)  && (x <= elOffset.right) &&
+        (y >= elOffset.top)   && (y <= elOffset.bottom)
+        ) {
+            el = $(this);
+            return false;
+        }
+
+        var offsets = [[elOffset.left, elOffset.top], [elOffset.right, elOffset.top], [elOffset.left, elOffset.bottom], [elOffset.right, elOffset.bottom]];
+        for (off in offsets) {
+            dx = offsets[off][0] - x;
+            dy = offsets[off][1] - y;
+            distance = Math.sqrt((dx*dx) + (dy*dy));
+            if (minDistance === undefined || distance < minDistance) {
+                minDistance = distance;
+                el = $(this);
+            }
+        }
+    });
+    return el;
+}
+
+$('div').closestToOffset({left: 20, top: 20});
+*/
+
 // run this block of code whent he page has loaded
 $(document).ready( function () {
+
+    //loop through contents of chrome.storage
+/*
+    for (var key in localStorage){
+        console.log(key + ":\t" + localStorage[key]);
+    }
+*/
+    var thisURL = window.location.href;
+
+    chrome.storage.sync.get('checkpoints', function (result) {
+
+        if(result.checkpoints == null)
+        {
+            /* error */
+
+            return;
+        }
+        else
+        {
+            var checkpoints = result.checkpoints;
+    
+            for(i = 0; i < checkpoints.length; i++)
+            {   
+                
+
+                // if the saved URL matches the current URL
+                // add a checkpoint at the element closest to the stored x,y location
+                if(checkpoints[i].pageURL == thisURL)
+                {
+                    var point = {x: checkpoints[i].x, y: checkpoints[i].y};
+
+                    var $closestToPoint = $.nearest(point, 'div');
+
+                    //var imgURL = chrome.extension.getURL("icon1.png");
+                    var newCheckpoint = new Image();
+                    newCheckpoint.className = "checkpoint";
+                    newCheckpoint.src = chrome.extension.getURL("icon1.png");
+
+                    //('<img class="checkpoint" src='+imgURL+' />');
+                    $closestToPoint.prepend(newCheckpoint);
+
+                }
+             
+            }
+  
+            
+            //console.log(result.checkpoints);
+            //console.log('added new checkpoint at x= ' + left + ' y= ' + top );
+            //console.log('page URL is ' + checkpoints[0].pageURL);
+            //console.log('x for element 0 is' + checkpoints[0].x);
+            
+        }
+
+   });     
+
+
 //window.onload = function() {
     // Create a canvas that extends the entire screen
     // and it will draw right over the other html elements, like buttons, etc
-
+/*
     var canvas = document.createElement("canvas");
     canvas.setAttribute("width", 19);
     canvas.setAttribute("height", 19);
@@ -52,7 +166,7 @@ $(document).ready( function () {
     newCheckpoint.src = chrome.extension.getURL("icon1.png");
 
     ctx.drawImage(newCheckpoint, 0, 0, 19, 19);
-
+*/
 
 /*
     var img = $("<img />")
@@ -110,6 +224,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
 // check for key press, use status to combine with mouseclick
 var savePressed = false;
+// used to track if delete checkpoint key is pressed
+var delPressed = false;
 var index = 0;
 
 $(document).keydown(function(evt) {
@@ -118,6 +234,12 @@ $(document).keydown(function(evt) {
     if(evt.which == 67)
     {
         savePressed = true;
+    }
+
+    //check if 'x' key is pressed
+    else if(evt.which == 88)
+    {
+        delPressed = true;
     }
 
     // check if v is pressed
@@ -149,7 +271,20 @@ $(document).keydown(function(evt) {
     // if z is pressed
     else if(evt.which == 90)
     {
+        // clears the chrome storage
         chrome.storage.sync.clear(function (){});
+
+        // clears all the checkpoints on hte current page
+        var list = document.getElementsByClassName("checkpoint");
+        for(var i = list.length - 1; 0 <= i; i--)
+        {
+            if(list[i] && list[i].parentElement)
+            {
+                list[i].parentElement.removeChild(list[i]);
+            }
+               
+        }
+        
     }
 
 }).keyup(function(evt) {
@@ -176,11 +311,25 @@ $(document).click(function(event) {
         //('<img class="checkpoint" src='+imgURL+' />');
         $(event.target).prepend(newCheckpoint);
 
-
+        var rect = event.target.getBoundingClientRect();
+        console.log("printing object coords");
+        console.log("x=" + rect.left);
+        console.log("y=" + rect.top);
+        
+/*
+        var test = getClosestElement(221, 309);
+        if(test.className === "example")
+        {
+            console.log("it worked");
+        }
+*/
 
         // chunk for finding the position of the created checkpoint
         // on the web page
-        var box = newCheckpoint.getBoundingClientRect();
+        //var box = newCheckpoint.getBoundingClientRect();
+        
+        // use to get the x,y coordinates for the element that was clicked on
+        var box = event.target.getBoundingClientRect();
 
         var body = document.body;
         var docElem = document.documentElement;
@@ -217,13 +366,23 @@ $(document).click(function(event) {
                 // you can use strings instead of objects
                 // if you don't  want to define default values
                 chrome.storage.sync.get('checkpoints', function (result) {
-                    console.log(result.checkpoints);
-                    console.log('added new checkpoint at x= ' + left + ' y= ' + top );
-                    console.log('page URL is ' + checkpoints[0].pageURL);
-                    console.log('x for element 0 is' + checkpoints[0].x);
+                    //console.log(result.checkpoints);
+                    //console.log('added new checkpoint at x= ' + left + ' y= ' + top );
+                    //console.log('page URL is ' + checkpoints[0].pageURL);
+                    //console.log('x for element 0 is' + checkpoints[0].x);
+
+                    console.log(checkpoints.length);
                 });
             });
         });
+/*
+        var image = getClosestElement(309, 225);
+        var rect = image.getBoundingClientRect();
+        if(image.class == )
+        {
+            console.log(image);
+        }
+*/
 
         //var temp = window.location.href;
         //console.log(temp);
@@ -258,6 +417,16 @@ $(document).click(function(event) {
 
         //var imgURL = chrome.extension.getURL("logo.jpg");
         //$(e.target).append('<img id="theImg" src="imgURL"/>'); 
+    }
+
+    // if the delete key (currently using 'x') and the left mouse click is pressed
+    else if (event.button == 0 && delPressed == true)
+    {
+        // if the object clicked on is a checkpoint, remove the object
+        if(event.target.className == "checkpoint")
+        {
+            event.target.remove();
+        }
     }
 });
 

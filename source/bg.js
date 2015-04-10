@@ -39,7 +39,7 @@ window.onload = function() {
 */
 
 // OLD CODE USED TO GET MOUSE POSITION ON RIGHT CLICK
-/*
+
 //global var for store cursor position
 var gPos = null;
 
@@ -47,10 +47,10 @@ var gPos = null;
 
 //receiving message
 chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
-if (msg.from == 'mouseup') {
-    //storing position
-    gPos = msg.point;
-}
+    if (msg.from == 'mouseup') {
+        //storing position
+        gPos = msg.point;
+    }
 })
 
 // onclick callback function.
@@ -73,7 +73,7 @@ var idConsole = chrome.contextMenus.create({
         OnClick(info, tab, '%s', gPos);
         }
 })
-*/
+
 // END OF RIGHT CLICK CODE
 
 
