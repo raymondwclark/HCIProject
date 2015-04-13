@@ -116,16 +116,14 @@ $(document).ready( function () {
             var checkpoints = result.checkpoints;
     
             for(i = 0; i < checkpoints.length; i++)
-            {   
-                
-
+            {  
                 // if the saved URL matches the current URL
                 // add a checkpoint at the element closest to the stored x,y location
                 if(checkpoints[i].pageURL == thisURL)
                 {
                     var point = {x: checkpoints[i].x, y: checkpoints[i].y};
 
-                    var $closestToPoint = $.nearest(point, 'div');
+                    var $closestToPoint = $.nearest(point);
 
                     //var imgURL = chrome.extension.getURL("icon1.png");
                     var newCheckpoint = new Image();
@@ -133,7 +131,18 @@ $(document).ready( function () {
                     newCheckpoint.src = chrome.extension.getURL("icon1.png");
 
                     //('<img class="checkpoint" src='+imgURL+' />');
-                    $closestToPoint.prepend(newCheckpoint);
+                    // add the image to the first (closest point) in the found
+                    // closest elements on the page
+
+                    //var closestPoint = $closestToPoint[$closestToPoint.length-1];
+                    //console.log($closestPoint);
+
+                    // appendsthe point to teh last element in the closests objects array
+                    // This seems to always be the one that was actually closest to the 
+                    // original parent element of the checkpoint
+                    $($closestToPoint[$closestToPoint.length-1]).prepend(newCheckpoint);
+
+                    //console.log($closestToPoint);
 
                 }
              
@@ -332,6 +341,8 @@ $(document).click(function(event) {
         //('<img class="checkpoint" src='+imgURL+' />');
         $(event.target).prepend(newCheckpoint);
 
+        // bounding box for the checkpoint
+        // This only returns the relative position on the current window, not the page
         var rect = event.target.getBoundingClientRect();
         console.log("printing object coords");
         console.log("x=" + rect.left);
@@ -366,6 +377,10 @@ $(document).click(function(event) {
 
         top = Math.round(top);
         left = Math.round(left);
+
+        console.log("absolute x=" + left);
+        console.log("absolute y=" + top);
+
 
 
         
