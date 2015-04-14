@@ -64,6 +64,9 @@ function OnClick(info, tab, text, mousePos) {
     }
 }
 
+
+// THIS IS THE CHUNK WITH THE CODE FOR RIGHT CLICKS
+/*
 //on click sample callback with more params
 var idConsole = chrome.contextMenus.create({
     title: 'Cursor Position',
@@ -73,6 +76,7 @@ var idConsole = chrome.contextMenus.create({
         OnClick(info, tab, '%s', gPos);
         }
 })
+*/
 
 // END OF RIGHT CLICK CODE
 
