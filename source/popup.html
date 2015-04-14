@@ -4,20 +4,22 @@
   <head>
     <title>Checkpoint</title>
     <style>
-      /*body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
-      }*/
       body{
         background-color: #F0F0F0;
       }
       p {
         color: black;
         text-align: left;
-        margin-left: 20px;
+        margin-left: 10px;
         font-family: Helvetica, sans-serif;
         font-size: 125%;
-        width: 150px;
+        width: 200px;
+      }
+      c{
+        color: blue;
+      }
+      t{
+
       }
       select.iconMenu option{
         background-repeat: no-repeat;
@@ -30,19 +32,19 @@
   <body>
     <form id = "settings">
       <!--Toggle checkpoint on or off-->
-      <p><label for="checkPointToggle"><span title = "Turns the ability to place checkpoints on or off">Toggle Checkpoints</span></label><br />
+      <!--<p><label for="checkPointToggle"><span title = "Turns the ability to place checkpoints on or off">Toggle Checkpoints</span></label><br />
         <input type = "radio" name = "checkpointOnOff" value = "on" checked>On
         <br>
-        <input type = "radio" name = "checkpointOnOff" value = "off">Off</p>
+        <input type = "radio" name = "checkpointOnOff" value = "off">Off</p>-->
 
       <!--Place checkpoint on left or right-->
-      <p><label for="placementSide"><span title = "Places the checkpoint on the left or right side of the page">Checkpoint Placement</span></label><br />
+      <!--<p><label for="placementSide"><span title = "Places the checkpoint on the left or right side of the page">Checkpoint Placement</span></label><br />
         <input type = "radio" name = "placementSide" value = "leftSide" checked>Left
         <br>
-        <input type = "radio" name = "placementSide" value = "rightSide">Right</p>
+        <input type = "radio" name = "placementSide" value = "rightSide">Right</p>-->
       
       <!--Choose checkpoint icon-->
-      <p><label for "icons"><span title = "Choose a different checkpoint icon to use">Checkpoint Icons</span></label><br />
+      <!--<p><label for "icons"><span title = "Choose a different checkpoint icon to use">Checkpoint Icons</span></label><br />
         <input type = "radio" name = "icon" value = "icon1" checked/>
           <label for "icon1"><img src = "icon1.png" alt = "Icon 1"/></label>
           <br>
@@ -52,7 +54,18 @@
           <input type = "radio" name = "icon" value = "icon3"/>
           <label for "icon3"><img src = "icon3.png" alt = "Icon 3"/></label></p>
 
-      <p><a href="help.html" style = "color: #0000FF;">Help</a></p>
+      <p><a href="help.html" style = "color: #0000FF;">Help</a></p>-->
+       <p><b>Add Point:</b> <c>Hold C</c> and <c>click the left mouse button</c> to place checkpoints on the web page. 
+      <br>
+      <br>
+      <b>Delete Point:</b> <c>Hold X</c> and <c>click the point</c> to delete it.
+      <br>
+      <br>
+      <b>Clear All Points:</b> <c>Press Z</c>
+       <br>
+      <br>
+      <b>Cycle:</b> To cycle through the checkpoints, <c>press F</c> to cycle up the page and <c>press V</c> to cycle down the page.
+    </p>
 
     </form>
   </body>
